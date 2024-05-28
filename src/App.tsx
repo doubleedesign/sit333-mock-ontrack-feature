@@ -1,6 +1,5 @@
-
 import { OverviewTable } from './components/OverviewTable/OverviewTable.tsx';
-import { Unit } from './types.ts';
+import { UnitEnrolment } from './types.ts';
 import { onTrack } from './datasources/onTrack.ts';
 import { useEffect, useState } from 'react';
 
@@ -10,7 +9,7 @@ function App() {
 
 	const fetchUnitIds = async () => {
 		const data = await onTrack.fetchCurrentEnrolledUnits();
-		return data.map((unit: Unit) => unit.id);
+		return data.map((enrolment: UnitEnrolment) => enrolment.unit.id);
 	};
 
 	useEffect(() => {
