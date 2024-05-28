@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 import { API_URL } from './src/constants';
-import mockData from './src/test/mock-data.json';
+import mockData from './src/test/mock-api-responses.json';
 
 fetchMock.enableMocks();
 
