@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="json-server.ts" type="NodeJSConfigurationType" path-to-node="wsl://Debian@/home/leesa/.nvm/versions/node/v21.6.1/bin/node" nameIsGenerated="true" node-parameters="--loader ts-node/esm --trace-warnings" path-to-js-file="src/mockapi/json-server.ts" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>
