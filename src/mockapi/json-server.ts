@@ -17,7 +17,7 @@ server.get('/api/projects/:id', (req, res) => {
 });
 
 server.get('/api/units/:id', (req, res) => {
-	res.json(db.units);
+	res.json(db.units.find(unit => unit.id === req.params.id));
 });
 
 server.listen(port, () => {

@@ -36,7 +36,7 @@ describe('Fetching OnTrack data', () => {
 		});
 
 		it('fails to fetch the user\'s current unit enrolments and logs an error', async () => {
-			const result = await onTrack.fetchCurrentEnrolledUnits();
+			const result = await onTrack.fetchCurrentEnrolments();
 
 			const loggedErrorObject = JSON.parse(consoleSpy.mock.calls[0][0]);
 

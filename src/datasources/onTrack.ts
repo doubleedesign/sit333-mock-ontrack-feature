@@ -8,7 +8,7 @@ export const onTrack = {
 	 *
 	 * @return Promise<UnitEnrolment[]>
 	 */
-	fetchCurrentEnrolledUnits: async(): Promise<UnitEnrolment[]> => {
+	fetchCurrentEnrolments: async(): Promise<UnitEnrolment[]> => {
 		const username = getUsername();
 		const token = getAuthToken();
 
@@ -43,7 +43,7 @@ export const onTrack = {
 	 *
 	 * @return Promise<UnitEnrolment>
 	 */
-	fetchEnrolmentForUnit: async(projectId: number): Promise<UnitEnrolment | null> => {
+	fetchProject: async(projectId: number): Promise<UnitEnrolment | null> => {
 		const username = getUsername();
 		const token = getAuthToken();
 
@@ -107,7 +107,7 @@ export const onTrack = {
 	 */
 	fetchTaskParticipationForUnitWithDetails: async(projectId: number): Promise<TaskTableRow[]> => {
 		try {
-			const enrolment = await onTrack.fetchEnrolmentForUnit(projectId);
+			const enrolment = await onTrack.fetchProject(projectId);
 			if(!enrolment) {
 				throw new Error('No enrolment found');
 			}

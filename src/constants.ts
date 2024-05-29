@@ -1,5 +1,6 @@
 import { USERNAME, TOKEN } from './credentials.ts';
 
+// TODO: Differentiate prod and dev/test environments automatically
 //export const API_URL = 'https://ontrack.deakin.edu.au/api';
 export const API_URL = 'http://localhost:6001/api';
 

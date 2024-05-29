@@ -8,8 +8,8 @@ function App() {
 	const [loading, setLoading] = useState(true);
 
 	const fetchUnitIds = async () => {
-		const data = await onTrack.fetchCurrentEnrolledUnits();
-		return data.map((enrolment: UnitEnrolment) => enrolment.unit.id);
+		const data = await onTrack.fetchCurrentEnrolments();
+		return data.map((enrolment: UnitEnrolment) => enrolment.id);
 	};
 
 	useEffect(() => {
