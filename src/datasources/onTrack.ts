@@ -142,5 +142,18 @@ export const onTrack = {
 			console.error(error);
 			return [];
 		}
+	},
+
+
+	/**
+	 * Fetch all the tasks for a group of project/enrolment IDs
+	 * @param projectIds
+	 */
+	fetchTaskRowsForProjects: async(projectIds: number[]): Promise<TaskTableRow[]> => {
+		const tasksForProject = await Promise.all(projectIds.map(async (projectId) => {
+			return await onTrack.fetchTaskParticipationForUnitWithDetails(projectId);
+		}));
+
+		return tasksForProject.flat();
 	}
 };

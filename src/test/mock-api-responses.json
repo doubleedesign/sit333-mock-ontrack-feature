@@ -3,7 +3,7 @@
 		{
 			"id": "57972",
 			"campus_id": 2,
-			"target_grade": 4,
+			"target_grade": 3,
 			"portfolio_available": false,
 			"unit": {
 				"id": "804",
@@ -37,7 +37,7 @@
 		{
 			"id": "24488",
 			"campus_id": 2,
-			"target_grade": 4,
+			"target_grade": 3,
 			"portfolio_available": false,
 			"unit": {
 				"id": "011",
@@ -73,7 +73,7 @@
 		{
 			"id": "57972",
 			"campus_id": 2,
-			"target_grade": 4,
+			"target_grade": 3,
 			"portfolio_available": false,
 			"unit": {
 				"id": "804",
@@ -431,7 +431,7 @@
 		{
 			"id": "24488",
 			"campus_id": 2,
-			"target_grade": 4,
+			"target_grade": 3,
 			"portfolio_available": false,
 			"unit": {
 				"id": "211",
@@ -873,7 +873,7 @@
 					"name": "The Collaboration Contamination",
 					"abbreviation": "3.1P",
 					"description": "",
-					"target_grade": 0,
+					"target_grade": 3,
 					"start_date": "2024-03-18",
 					"target_date": "2024-03-18",
 					"due_date": "2024-03-25",
@@ -919,7 +919,7 @@
 					"name": "The Status Quo Combustion",
 					"abbreviation": "5.1P",
 					"description": "",
-					"target_grade": 0,
+					"target_grade": 3,
 					"start_date": "2024-04-01",
 					"target_date": "2024-04-01",
 					"due_date": "2024-04-08",
@@ -1264,7 +1264,7 @@
 					"name": "The Geology Methodology",
 					"abbreviation": "6.1P",
 					"description": "",
-					"target_grade": 0,
+					"target_grade": 3,
 					"start_date": "2024-04-08",
 					"target_date": "2024-04-08",
 					"due_date": "2024-04-15",

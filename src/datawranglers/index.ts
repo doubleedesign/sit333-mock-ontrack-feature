@@ -3,7 +3,7 @@ import filter from './filtering';
 import grouper from './grouping';
 
 export const datawranglers = {
-	sortBy: sorter.sortBy,
-	filterBy: filter.filterBy,
-	groupBy: grouper.groupBy,
+	sort: sorter.sortBy,
+	filter: filter.filterBy,
+	group: grouper.groupBy,
 };
