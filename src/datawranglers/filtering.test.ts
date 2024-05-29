@@ -12,7 +12,7 @@ describe('filtering', () => {
 	beforeAll(async () => {
 		usernameSpy.mockReturnValue('valid-username');
 		tokenSpy.mockReturnValue('valid-token');
-		rawData = await onTrack.fetchTaskRowsForProjects([57972, 25781, 77057, 57972]);
+		rawData = await onTrack.fetchTaskRowsForProjects([57972, 25781, 77057, 24488]);
 	});
 
 	describe('filtering by status', () => {
@@ -29,22 +29,22 @@ describe('filtering', () => {
 			const result = datawranglers.filter(rawData, 'status', 'complete');
 
 			// Assert
-			expect(result).toHaveLength(16);
+			expect(result).toHaveLength(14);
 			// Right BI[C]EP - Cross-check using lodash library
 			expect(result).toEqual(_.filter(rawData, { status: 'complete' }));
 		});
 
-		test('waiting_for_feedback', () => {
-			const result = datawranglers.filter(rawData, 'status', 'waiting_for_feedback');
+		test('ready_for_feedback', () => {
+			const result = datawranglers.filter(rawData, 'status', 'ready_for_feedback');
 
 			expect(result).toHaveLength(4);
-			expect(result).toEqual(_.filter(rawData, { status: 'waiting_for_feedback' }));
+			expect(result).toEqual(_.filter(rawData, { status: 'ready_for_feedback' }));
 		});
 
 		test('not_started', () => {
 			const result = datawranglers.filter(rawData, 'status', 'not_started');
 
-			expect(result).toHaveLength(19);
+			expect(result).toHaveLength(16);
 			expect(result).toEqual(_.filter(rawData, { status: 'not_started' }));
 		});
 
@@ -53,6 +53,27 @@ describe('filtering', () => {
 
 			expect(result).toHaveLength(0);
 			expect(result).toEqual(_.filter(rawData, { status: 'need_help' }));
+		});
+
+		test('discuss', () => {
+			const result = datawranglers.filter(rawData, 'status', 'discuss');
+
+			expect(result).toHaveLength(1);
+			expect(result).toEqual(_.filter(rawData, { status: 'discuss' }));
+		});
+
+		test('working_on_it', () => {
+			const result = datawranglers.filter(rawData, 'status', 'working_on_it');
+
+			expect(result).toHaveLength(2);
+			expect(result).toEqual(_.filter(rawData, { status: 'working_on_it' }));
+		});
+
+		test('time_exceeded', () => {
+			const result = datawranglers.filter(rawData, 'status', 'time_exceeded');
+
+			expect(result).toHaveLength(2);
+			expect(result).toEqual(_.filter(rawData, { status: 'time_exceeded' }));
 		});
 	});
 
@@ -66,7 +87,7 @@ describe('filtering', () => {
 		test('Unit OWD276', () => {
 			const result = datawranglers.filter(rawData, 'unitCode', 'OWD276');
 
-			expect(result).toHaveLength(20);
+			expect(result).toHaveLength(10);
 			expect(result).toEqual(_.filter(rawData, { unitCode: 'OWD276' }));
 		});
 	});
@@ -81,7 +102,7 @@ describe('filtering', () => {
 		test('Pass', () => {
 			const result = datawranglers.filter(rawData, 'taskTargetGrade', 'P');
 
-			expect(result).toHaveLength(17);
+			expect(result).toHaveLength(18);
 			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 'P' }));
 		});
 
@@ -102,7 +123,7 @@ describe('filtering', () => {
 		test('High Distinction', () => {
 			const result = datawranglers.filter(rawData, 'taskTargetGrade', 'HD');
 
-			expect(result).toHaveLength(3);
+			expect(result).toHaveLength(2);
 			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 'HD' }));
 		});
 	});
