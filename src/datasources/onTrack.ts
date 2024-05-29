@@ -1,5 +1,6 @@
 import { API_URL, getAuthToken, getUsername, TargetGrades } from '../constants.ts';
 import { TaskDefinition, TaskSubmission, TaskTableRow, UnitEnrolment } from '../types.ts';
+import _ from 'lodash';
 
 export const onTrack = {
 	/**
@@ -88,7 +89,7 @@ export const onTrack = {
 
 			const result = await response.json();
 
-			return result.task_definitions;
+			return result?.task_definitions || [];
 		}
 		catch (error) {
 			console.error(error);
@@ -108,33 +109,34 @@ export const onTrack = {
 	fetchTaskParticipationForUnitWithDetails: async(projectId: number): Promise<TaskTableRow[]> => {
 		try {
 			const enrolment = await onTrack.fetchProject(projectId);
-			if(!enrolment) {
-				throw new Error('No enrolment found');
-			}
+			if(enrolment) {
+				const taskDefinitions = await onTrack.fetchTaskDefinitionsForUnit(Number(enrolment.unit.id));
 
-			const taskDefinitions = await onTrack.fetchTaskDefinitionsForUnit(enrolment.unit.id);
-
-			if(taskDefinitions.length === 0) {
-				throw new Error('No task definitions found');
-			}
-
-			return enrolment.tasks.map((task: TaskSubmission) => {
-				const taskDefinition = taskDefinitions.find((definition: TaskDefinition) => {
-					return definition.id === task.task_definition_id;
-				});
-				if(!taskDefinition) {
-					throw new Error('Task definition not found');
+				if(taskDefinitions.length === 0) {
+					throw new Error('No task definitions found');
 				}
 
-				return {
-					unitCode: enrolment.unit.code,
-					unitName: enrolment.unit.name,
-					unitId: enrolment.unit.id, // OnTrack API unit ID
-					taskName: `${taskDefinition.abbreviation} - ${taskDefinition.name}`,
-					taskTargetGrade: TargetGrades[taskDefinition.target_grade],
-					...task,
-				};
-			});
+				return enrolment.tasks.map((task: TaskSubmission) => {
+					const taskDefinition = taskDefinitions.find((definition: TaskDefinition) => {
+						return definition.id === task.task_definition_id;
+					});
+					if(!taskDefinition) {
+						throw new Error('Task definition not found');
+					}
+
+					return {
+						unitCode: enrolment.unit.code,
+						unitName: enrolment.unit.name,
+						unitId: enrolment.unit.id, // OnTrack API unit ID
+						taskName: `${taskDefinition.abbreviation} - ${taskDefinition.name}`,
+						taskTargetGrade: TargetGrades[taskDefinition.target_grade],
+						..._.pick(task, ['id', 'task_definition_id', 'status', 'due_date'])
+					};
+				});
+			}
+			else {
+				throw new Error('No enrolment found');
+			}
 		}
 		catch(error) {
 			console.error(error);

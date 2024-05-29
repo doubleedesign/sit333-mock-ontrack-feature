@@ -434,7 +434,7 @@
 			"target_grade": 4,
 			"portfolio_available": false,
 			"unit": {
-				"id": "011",
+				"id": "211",
 				"code": "VID309",
 				"name": "Urban Matrimony and the Sandwich Arts",
 				"start_date": "2024-03-04",
@@ -444,7 +444,7 @@
 				"active": true
 			},
 			"user_id": 1234,
-			"unit_id": "011",
+			"unit_id": "211",
 			"submitted_grade": 0,
 			"portfolio_files": [],
 			"compile_portfolio": false,
@@ -1425,7 +1425,7 @@
 			"groups": []
 		},
 		{
-			"id": "011",
+			"id": "211",
 			"code": "VID309",
 			"name": "Urban Matrimony and the Sandwich Arts",
 			"start_date": "2024-03-04",

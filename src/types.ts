@@ -56,10 +56,6 @@ export type TaskSubmission = {
 	task_definition_id: number;
 	status: TaskStatus;
 	due_date: string;
-	extensions: number;
-	times_assessed: number;
-	quality_pts: number;
-	include_in_portfolio: boolean;
 	// There's also more fields that I don't need to care about at this point
 };
 

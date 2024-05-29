@@ -33,50 +33,54 @@ beforeAll(() => {
 			const id = req.url.split('/').pop();
 
 			if(Number.isNaN(Number(id))) {
-				return Promise.reject(JSON.stringify({
+				return Promise.reject({
 					status: 400,
 					statusText: 'Bad Request',
-				}));
+					body: JSON.stringify({ message: 'Invalid project ID' })
+				});
 			}
 
-			const project = mockData.projects.find((project) => project.id == id);
+			const project = mockData.projects.find((project) => project.id.toString() === id);
 			if (project) {
-				return Promise.resolve(JSON.stringify({
+				return Promise.resolve({
 					status: 200,
 					statusText: 'OK',
-					body: JSON.stringify(project)
-				}));
+					body: JSON.stringify(project),
+				});
 			}
 
-			return Promise.reject(JSON.stringify({
+			return Promise.reject({
 				status: 404,
 				statusText: 'Not Found',
-			}));
+				message: JSON.stringify({ message: 'Enrolment not found' })
+			});
 		}
 
 		// The overall details of a unit as applicable to everybody
-		if(req.url.startsWith(`${API_URL}/units/`)) {
+		else if(req.url.startsWith(`${API_URL}/units/`)) {
 			const id = req.url.split('/').pop();
 
-			const unit = mockData.units.find((unit) => unit.id == id);
+			const unit = mockData.units.find((unit) => unit.id.toString() === id);
 			if (unit) {
-				return Promise.resolve(JSON.stringify({
+				return Promise.resolve({
 					status: 200,
 					statusText: 'OK',
-					body: JSON.stringify(unit)
-				}));
+					body: JSON.stringify(unit),
+				});
 			}
 
-			return Promise.reject(JSON.stringify({
+			return Promise.reject({
 				status: 404,
 				statusText: 'Not Found',
-			}));
+				body: JSON.stringify({ message: 'Unit not found' })
+			});
 		}
 
 		// If the URL does not match any of the above, return 418 because it's fun
-		return Promise.reject(JSON.stringify({
+		return Promise.reject({
 			status: 418,
 			statusText: 'I\'m a teapot',
-		}));
+			body: JSON.stringify({ message: 'I\'m a teapot' })
+		});
 	});
 });
