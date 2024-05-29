@@ -5,7 +5,7 @@
 
 .container {
 	min-width: 60rem; /** TODO: Mobile/smaller viewports **/
-	max-width: 65rem;
+	max-width: 70rem;
 	margin: 0 auto;
 }
 

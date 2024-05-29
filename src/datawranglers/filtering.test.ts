@@ -30,7 +30,7 @@ describe('filtering', () => {
 
 			// Assert
 			expect(result).toHaveLength(15);
-			// Right BI[C]EP - Cross-check using lodash library
+			// BI[C]EP - Cross-check using lodash library
 			expect(result).toEqual(_.filter(rawData, { status: 'complete' }));
 		});
 

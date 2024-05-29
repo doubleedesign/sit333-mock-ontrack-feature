@@ -17,7 +17,8 @@ export const StyledSortableTable = styled.table`
 	}
 	
 	[data-fieldkey="unitName"] {
-		max-width: 10rem;
+		width: 10rem;
+		max-width: 15rem;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;

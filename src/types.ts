@@ -1,5 +1,3 @@
-// An instance of a unit associated with a student
-// called a "Project" in the OnTrack API
 import { TargetGrades } from './constants.ts';
 
 export type UnitEnrolment = {
