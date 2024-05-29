@@ -29,7 +29,7 @@ describe('filtering', () => {
 			const result = datawranglers.filter(rawData, 'status', 'complete');
 
 			// Assert
-			expect(result).toHaveLength(14);
+			expect(result).toHaveLength(15);
 			// Right BI[C]EP - Cross-check using lodash library
 			expect(result).toEqual(_.filter(rawData, { status: 'complete' }));
 		});
@@ -37,14 +37,14 @@ describe('filtering', () => {
 		test('ready_for_feedback', () => {
 			const result = datawranglers.filter(rawData, 'status', 'ready_for_feedback');
 
-			expect(result).toHaveLength(4);
+			expect(result).toHaveLength(5);
 			expect(result).toEqual(_.filter(rawData, { status: 'ready_for_feedback' }));
 		});
 
 		test('not_started', () => {
 			const result = datawranglers.filter(rawData, 'status', 'not_started');
 
-			expect(result).toHaveLength(16);
+			expect(result).toHaveLength(14);
 			expect(result).toEqual(_.filter(rawData, { status: 'not_started' }));
 		});
 
@@ -100,31 +100,31 @@ describe('filtering', () => {
 		});
 
 		test('Pass', () => {
-			const result = datawranglers.filter(rawData, 'taskTargetGrade', 'P');
+			const result = datawranglers.filter(rawData, 'taskTargetGrade', 0);
 
 			expect(result).toHaveLength(18);
-			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 'P' }));
+			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 0 }));
 		});
 
 		test('Credit', () => {
-			const result = datawranglers.filter(rawData, 'taskTargetGrade', 'C');
+			const result = datawranglers.filter(rawData, 'taskTargetGrade', 1);
 
 			expect(result).toHaveLength(11);
-			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 'C' }));
+			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 1 }));
 		});
 
 		test('Distinction', () => {
-			const result = datawranglers.filter(rawData, 'taskTargetGrade', 'D');
+			const result = datawranglers.filter(rawData, 'taskTargetGrade', 2);
 
 			expect(result).toHaveLength(8);
-			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 'D' }));
+			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 2 }));
 		});
 
 		test('High Distinction', () => {
-			const result = datawranglers.filter(rawData, 'taskTargetGrade', 'HD');
+			const result = datawranglers.filter(rawData, 'taskTargetGrade', 3);
 
 			expect(result).toHaveLength(2);
-			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 'HD' }));
+			expect(result).toEqual(_.filter(rawData, { taskTargetGrade: 3 }));
 		});
 	});
 });

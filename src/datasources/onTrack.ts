@@ -129,7 +129,7 @@ export const onTrack = {
 						unitName: enrolment.unit.name,
 						unitId: enrolment.unit.id, // OnTrack API unit ID
 						taskName: `${taskDefinition.abbreviation} - ${taskDefinition.name}`,
-						taskTargetGrade: TargetGrades[taskDefinition.target_grade],
+						taskTargetGrade: taskDefinition.target_grade,
 						..._.pick(task, ['id', 'task_definition_id', 'status', 'due_date'])
 					};
 				});

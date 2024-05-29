@@ -67,5 +67,5 @@ export type TaskTableRow = TaskSubmission & {
 	unitName: string;
 	unitId: number;
 	taskName: string;
-	taskTargetGrade: typeof TargetGrades[number];
+	taskTargetGrade: keyof typeof TargetGrades[number];
 };

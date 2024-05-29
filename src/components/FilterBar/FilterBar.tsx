@@ -1,5 +1,9 @@
 import { ChangeEvent, FC, useCallback, useContext, useState } from 'react';
 import { EnrolmentContext } from '../EnrolmentContext/EnrolmentContextProvider.tsx';
+import { FilterBarItem, StyledFilterBar } from './FilterBar.style.ts';
+import { useSelect } from 'downshift';
+import { TargetGrades } from '../../constants.ts';
+import Case from 'case';
 
 export const FilterBar: FC = () => {
 	const { sortableColumns, sortableColumnValues, sort, filter } = useContext(EnrolmentContext);
@@ -19,27 +23,36 @@ export const FilterBar: FC = () => {
 	}, [filter, selectedFilter]);
 
 	return (
-		<div className="filter-bar" data-testid="FilterBar">
-			<div className="filter-bar-item">
+		<StyledFilterBar className="filter-bar container" data-testid="FilterBar">
+			<FilterBarItem>
 				<label htmlFor="column">Filter by:</label>
 				<select id="column" onChange={handleFilterChange}>
 					<option value="">Select a column</option>
 					{sortableColumns.map((column, index) => (
-						<option key={index} value={column.value}>{column.label}</option>
+						<option key={index} value={column.value}>{column.value === 'taskTargetGrade' ? 'Target grade' : column.label}</option>
 					))}
 				</select>
-			</div>
-			{selectedFilter && (
-				<div className="filter-bar-item">
-					<label htmlFor="value">Value:</label>
+			</FilterBarItem>
+			<FilterBarItem className="filter-bar-item">
+				<label htmlFor="value">Value:</label>
+				{selectedFilter ? (
 					<select id="value" onChange={handleFilterSelection}>
 						<option value="">Select a value</option>
 						{sortableColumnValues.find(value => value.value === selectedFilter)?.values.map((value, index) => (
-							<option key={index} value={value}>{value}</option>
+							<option key={index} value={value}>
+								{selectedFilter === 'taskTargetGrade'
+									? TargetGrades[value]
+									: value.length > 20
+										? `${Case.sentence(value).slice(0, 20)}...`
+										: ['unitCode', 'unitName'].includes(selectedFilter) ? value : Case.sentence(value)
+								}
+							</option>
 						))}
 					</select>
-				</div>
-			)}
-		</div>
+				) : (
+					<select id="value" disabled><option value="">Select a value</option></select>
+				)}
+			</FilterBarItem>
+		</StyledFilterBar>
 	);
 };

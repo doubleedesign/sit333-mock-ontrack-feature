@@ -1,0 +1,50 @@
+import styled from 'styled-components';
+import { shade } from 'polished';
+
+export const StyledSortableTable = styled.table`
+	
+	thead th {
+		background-color: #337ab7;
+		color: white;
+	}
+
+	tr:nth-child(even) {
+		background-color: #f2f2f2;
+	}
+
+	[data-fieldkey="unitCode"] {
+		width: 6.5rem;
+	}
+	
+	[data-fieldkey="unitName"] {
+		max-width: 10rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		
+		&:is(td) { 
+			border-right: 1px solid ${shade(0.1, '#f2f2f2')}; 
+		}
+	}
+	
+	[data-fieldkey="taskTargetGrade"] {
+		text-align: center;
+		width: 2.5rem;
+		
+		svg {
+			font-size: 1.4em;
+		}
+	}
+	
+	[data-fieldkey="status"] {
+		text-align: center;
+		
+		span:only-child {
+			margin: 0 auto;
+		}
+	}
+	
+	[data-fieldkey="due_date"] {
+		width: 13rem;
+	}
+`;

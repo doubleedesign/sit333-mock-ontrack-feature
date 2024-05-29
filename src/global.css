@@ -1,0 +1,28 @@
+* {
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+
+.container {
+	min-width: 60rem; /** TODO: Mobile/smaller viewports **/
+	max-width: 65rem;
+	margin: 0 auto;
+}
+
+table {
+	width: 100%;
+	margin-bottom: 2rem;
+	border-collapse: collapse;
+}
+
+table thead th {
+	font-weight: 600;
+}
+
+table th, table td {
+	padding: 0.5rem;
+}
+
+table th {
+	text-align: left;
+}
