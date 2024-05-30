@@ -871,7 +871,7 @@
 				{
 					"id": "62072",
 					"name": "The Collaboration Contamination",
-					"abbreviation": "3.1P",
+					"abbreviation": "3.1HD",
 					"description": "",
 					"target_grade": 3,
 					"start_date": "2024-03-18",
@@ -917,7 +917,7 @@
 				{
 					"id": "25772",
 					"name": "The Status Quo Combustion",
-					"abbreviation": "5.1P",
+					"abbreviation": "5.1HD",
 					"description": "",
 					"target_grade": 3,
 					"start_date": "2024-04-01",
@@ -1262,7 +1262,7 @@
 				{
 					"id": "90265",
 					"name": "The Geology Methodology",
-					"abbreviation": "6.1P",
+					"abbreviation": "6.1HD",
 					"description": "",
 					"target_grade": 3,
 					"start_date": "2024-04-08",
