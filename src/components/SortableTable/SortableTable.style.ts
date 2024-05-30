@@ -30,15 +30,18 @@ export const StyledSortableTable = styled.table`
 	
 	[data-fieldkey="taskTargetGrade"] {
 		text-align: center;
-		width: 2.5rem;
+		width: 5rem;
 		
-		svg {
-			font-size: 1.4em;
-		}
+		&:is(td) {
+			svg {
+				font-size: 1.4em;
+			}
+		}		
 	}
 	
 	[data-fieldkey="status"] {
 		text-align: center;
+		width: 5rem;
 		
 		span:only-child {
 			margin: 0 auto;

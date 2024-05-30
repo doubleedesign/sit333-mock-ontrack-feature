@@ -6,7 +6,7 @@ import { TargetGrades } from '../../constants.ts';
 import Case from 'case';
 
 export const FilterBar: FC = () => {
-	const { sortableColumns, sortableColumnValues, sort, filter } = useContext(EnrolmentContext);
+	const { filterableColumns, sortableColumnValues, filter } = useContext(EnrolmentContext);
 	const [selectedFilter, setSelectedFilter] = useState<string>('');
 
 	const handleFilterChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
@@ -28,7 +28,7 @@ export const FilterBar: FC = () => {
 				<label htmlFor="column">Filter by:</label>
 				<select id="column" onChange={handleFilterChange}>
 					<option value="">Select a column</option>
-					{sortableColumns.map((column, index) => (
+					{filterableColumns.map((column, index) => (
 						<option key={index} value={column.value}>{column.value === 'taskTargetGrade' ? 'Target grade' : column.label}</option>
 					))}
 				</select>

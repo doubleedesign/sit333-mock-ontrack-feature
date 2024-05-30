@@ -11,21 +11,23 @@ type EnrolmentContextProps = {
 	}[];
 }
 
+type Column = {
+	value: string;
+	label: string;
+}
+
+type ColumnValues = {
+	value: string;
+	values: string[];
+}
+
 type EnrolmentContextState = {
 	loading: boolean;
 	data: TaskTableRow[];
-	columns: {
-		value: string;
-		label: string;
-	}[];
-	sortableColumns: {
-		value: string;
-		label: string;
-	}[];
-	sortableColumnValues: {
-		value: string;
-		values: string[];
-	}[];
+	columns: Column[];
+	filterableColumns: Column[];
+	sortableColumns: Column[];
+	sortableColumnValues: ColumnValues[];
 	filter: (field: string, value: string | number) => void;
 	sort: (field: string, order: 'asc' | 'desc') => void;
 }
@@ -49,9 +51,10 @@ export const EnrolmentContextProvider: FC<PropsWithChildren<EnrolmentContextProp
 	}, [projectIds]);
 
 
-	// Define sortable columns
+	// Define sortable and filterable columns
 	const columns = showColumns;
-	const sortableColumns = columns.filter(column => !['due_date', 'taskName'].includes(column.value));
+	const sortableColumns = columns;
+	const filterableColumns = columns.filter(column => !['taskName', 'due_date'].includes(column.value));
 
 	// Loop through the data to get the possible values of the fields that match the sortable column names
 	const sortableColumnValues = useMemo(() => {
@@ -63,7 +66,6 @@ export const EnrolmentContextProvider: FC<PropsWithChildren<EnrolmentContextProp
 			return { value: column.value, values: Array.from(values) };
 		});
 	}, [rawData, sortableColumns]);
-
 
 	const filter = (field: string, value: string | number) => {
 		if(field === '' || value === '') {
@@ -83,7 +85,7 @@ export const EnrolmentContextProvider: FC<PropsWithChildren<EnrolmentContextProp
 	// }
 
 	return (
-		!loading && data && <EnrolmentContext.Provider value={{ loading, data, columns, sortableColumns, sortableColumnValues, filter, sort }}>{children}</EnrolmentContext.Provider>
+		!loading && data && <EnrolmentContext.Provider value={{ loading, data, columns, sortableColumns, sortableColumnValues, filterableColumns, filter, sort }}>{children}</EnrolmentContext.Provider>
 	);
 };
 

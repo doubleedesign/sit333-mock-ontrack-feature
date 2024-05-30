@@ -9,7 +9,7 @@ describe('filtering', () => {
 	const tokenSpy = jest.spyOn(constants, 'getAuthToken');
 
 	// Arrange
-	beforeAll(async () => {
+	beforeEach(async () => {
 		usernameSpy.mockReturnValue('valid-username');
 		tokenSpy.mockReturnValue('valid-token');
 		rawData = await onTrack.fetchTaskRowsForProjects([57972, 25781, 77057, 24488]);
