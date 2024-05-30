@@ -40,6 +40,20 @@ beforeAll(() => {
 				});
 			}
 
+			// Add a minimal example with a unit that has no task definitions for unit testing purposes
+			if(id === '24404') {
+				return Promise.resolve({
+					status: 200,
+					statusText: 'OK',
+					body: JSON.stringify({
+						id: 24404,
+						unit: {
+							id: 1404,
+						}
+					})
+				});
+			}
+
 			const project = mockData.projects.find((project) => project.id.toString() === id);
 			if (project) {
 				return Promise.resolve({
@@ -59,6 +73,18 @@ beforeAll(() => {
 		// The overall details of a unit as applicable to everybody
 		else if(req.url.startsWith(`${API_URL}/units/`)) {
 			const id = req.url.split('/').pop();
+
+			// Add a minimal example with no task definitions for unit testing purposes
+			if(id === '1404') {
+				return Promise.resolve({
+					status: 200,
+					statusText: 'OK',
+					body: JSON.stringify({
+						id: 1404,
+						task_definitions: []
+					})
+				});
+			}
 
 			const unit = mockData.units.find((unit) => unit.id.toString() === id);
 			if (unit) {

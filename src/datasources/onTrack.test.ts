@@ -5,6 +5,7 @@ describe('Fetching OnTrack data', () => {
 
 	describe('with valid credentials', () => {
 
+		// Arrange
 		beforeEach(() => {
 			jest.spyOn(constants, 'getUsername').mockReturnValue('valid-username');
 			jest.spyOn(constants, 'getAuthToken').mockReturnValue('valid-token');
@@ -14,37 +15,140 @@ describe('Fetching OnTrack data', () => {
 			jest.clearAllMocks();
 		});
 
-		it('fetches the user\'s current unit enrolments', async () => {
-			const result = await onTrack.fetchCurrentEnrolments();
+		describe('Fetch current enrolments', () => {
 
-			expect(result).toHaveLength(4);
+			it('fetches the user\'s current unit enrolments', async () => {
+				// Act
+				const result = await onTrack.fetchCurrentEnrolments();
+
+				// Assert
+				expect(result).toHaveLength(4);
+			});
 		});
 
-		it('fetches user participation details for a unit', async () => {
-			const result = await onTrack.fetchProject(57972);
+		describe('Fetch project', () => {
 
-			expect(Object.keys(result)).toEqual(expect.arrayContaining([
-				'id',
-				'unit',
-				'tasks'
-			]));
+			it('fetches user participation details for a unit by project ID', async () => {
+				const result = await onTrack.fetchProject(57972);
 
-			expect(result.unit).toEqual(expect.objectContaining({
-				code: 'OWD276',
-				name: 'Emotional Consequences of Broadcast Television',
-			}));
+				expect(Object.keys(result)).toEqual(expect.arrayContaining([
+					'id',
+					'unit',
+					'tasks'
+				]));
+
+				expect(result.unit).toEqual(expect.objectContaining({
+					code: 'OWD276',
+					name: 'Emotional Consequences of Broadcast Television',
+				}));
+			});
 		});
 
-		it('fetches task definitions for a unit', async () => {
-			const result = await onTrack.fetchTaskDefinitionsForUnit(804);
+		describe('Fetch unit details', () => {
 
-			expect(result).toHaveLength(13);
+			it('fetches task definitions for a unit', async () => {
+				const result = await onTrack.fetchTaskDefinitionsForUnit(804);
+
+				expect(result).toHaveLength(13);
+			});
+
+			it('returns an empty array if task definitions are empty', async () => {
+				const result = await onTrack.fetchTaskDefinitionsForUnit(1404);
+
+				expect(result).toEqual([]);
+			});
 		});
 
-		it('fetches combined task definition and submission data for a unit', async () => {
-			const result = await onTrack.fetchTaskParticipationForUnitWithDetails(57972);
+		describe('Fetch task participation for unit with details', () => {
 
-			expect(Object.keys(result[0])).toEqual(expect.arrayContaining(['unitCode', 'unitName', 'unitId', 'taskName', 'taskTargetGrade', 'status', 'due_date']));
+			it('fetches combined task definition and submission data for a unit', async () => {
+				const result = await onTrack.fetchTaskParticipationForUnitWithDetails(57972);
+
+				expect(Object.keys(result[0])).toEqual(expect.arrayContaining(['unitCode', 'unitName', 'unitId', 'taskName', 'taskTargetGrade', 'status', 'due_date']));
+			});
+
+			it('logs an error if no task definitions are found', async () => {
+				const result = await onTrack.fetchTaskParticipationForUnitWithDetails(24404);
+
+				expect(console.error).toHaveBeenCalledWith(expect.objectContaining({ message: 'No task definitions found' }));
+			});
+		});
+
+		describe('Fetch task rows for a set of projects', () => {
+
+			it('fetches task rows for all projects/enrolments', async () => {
+				const result = await onTrack.fetchTaskRowsForProjects([57972, 25781, 24488, 77057]);
+
+				expect(result).toHaveLength(39);
+			});
+		});
+	});
+
+	describe('with valid credentials but invalid requests', () => {
+		beforeEach(() => {
+			jest.spyOn(constants, 'getUsername').mockReturnValue('valid-username');
+			jest.spyOn(constants, 'getAuthToken').mockReturnValue('valid-token');
+		});
+
+		afterEach(() => {
+			jest.clearAllMocks();
+		});
+
+		describe('fetching user participation details for a unit', () => {
+
+			it('logs a 404 Not Found error and returns null if an invalid enrolment/project ID is provided', async () => {
+				const result = await onTrack.fetchProject(101);
+
+				expect(console.error).toHaveBeenCalledWith(expect.objectContaining({
+					status: 404,
+					statusText: 'Not Found',
+				}));
+
+				expect(result).toBeNull();
+			});
+		});
+
+		describe('fetching task definitions for a unit', () => {
+
+			it('logs a 404 Not Found error and returns an empty array if an invalid unit ID is provided', async () => {
+				const result = await onTrack.fetchTaskDefinitionsForUnit(101);
+
+				expect(console.error).toHaveBeenCalledWith(expect.objectContaining({
+					status: 404,
+					statusText: 'Not Found',
+				}));
+
+				expect(result).toEqual([]);
+			});
+		});
+
+		describe('fetching combined task definition and submission data for a unit', () => {
+
+			it('logs a 404 Not Found error and returns an empty array if an invalid enrolment/project ID is provided', async () => {
+				const result = await onTrack.fetchTaskParticipationForUnitWithDetails(101);
+
+				expect(console.error).toHaveBeenCalledWith(expect.objectContaining({
+					status: 404,
+					statusText: 'Not Found',
+				}));
+
+				expect(result).toEqual([]);
+			});
+
+		});
+
+		describe('fetching task rows for all projects/enrolments', () => {
+			it('returns an empty array if no valid project/enrolment IDs are provided', async () => {
+				const result = await onTrack.fetchTaskRowsForProjects([101, 102, 103]);
+
+				expect(result).toEqual([]);
+			});
+
+			it('returns results if some valid and some invalid project/enrolment IDs are provided', async () => {
+				const result = await onTrack.fetchTaskRowsForProjects([57972, 77057]);
+
+				expect(result).toHaveLength(20);
+			});
 		});
 	});
 
@@ -73,15 +177,27 @@ describe('Fetching OnTrack data', () => {
 		});
 
 		it('fails to fetch user participation details for a unit and logs an error', async () => {
+			const result = await onTrack.fetchProject(57972);
 
+			const loggedErrorObject = JSON.parse(consoleSpy.mock.calls[0][0]);
+
+			expect(loggedErrorObject).toEqual(expect.objectContaining({ statusText: 'Unauthorized' }));
 		});
 
 		it('fails to fetch task definitions for a unit and logs an error', async () => {
+			const result = await onTrack.fetchTaskDefinitionsForUnit(804);
 
+			const loggedErrorObject = JSON.parse(consoleSpy.mock.calls[0][0]);
+
+			expect(loggedErrorObject).toEqual(expect.objectContaining({ statusText: 'Unauthorized' }));
 		});
 
 		it('fails to fetch combined task definition and submission data for a unit and logs an error', async () => {
+			const result = await onTrack.fetchTaskParticipationForUnitWithDetails(57972);
 
+			const loggedErrorObject = JSON.parse(consoleSpy.mock.calls[0][0]);
+
+			expect(loggedErrorObject).toEqual(expect.objectContaining({ statusText: 'Unauthorized' }));
 		});
 	});
 });
