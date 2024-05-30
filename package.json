@@ -1,8 +1,9 @@
 {
-	"name": "vite-project",
+	"name": "sit333-mock-ontrack-feature",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"type": "module",
+	"author": "Leesa Ward",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
