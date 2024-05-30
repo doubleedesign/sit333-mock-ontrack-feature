@@ -76,7 +76,7 @@ export const SortableTable: FC = () => {
 				</thead>
 				<tbody>
 					{data.map((row, rowIndex) => (
-						<tr key={`${row.unitCode}-${Case.kebab(row.taskName)}`}>
+						<tr key={`${row.unitCode}-${Case.kebab(row.taskName)}`} data-testId={`row-task-def-${row.task_definition_id}`}>
 							{columns.map((column, columnIndex) => (
 								<td key={columnIndex} data-fieldkey={column.value}>
 									{cellContent(row, column.value)}

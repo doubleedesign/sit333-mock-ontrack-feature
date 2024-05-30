@@ -5,6 +5,8 @@ import { TaskStatus } from './types.ts';
 //export const API_URL = 'https://ontrack.deakin.edu.au/api';
 export const API_URL = 'http://localhost:6001/api';
 
+export const FRONTEND_URL = 'http://localhost:5173';
+
 export const getUsername = () => USERNAME;
 export const getAuthToken = () => TOKEN;
 

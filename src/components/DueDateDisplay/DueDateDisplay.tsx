@@ -42,7 +42,7 @@ export const DueDateDisplay: FC<DueDateDisplayProps> = ({ due }) => {
 	}, [dueDate, today]);
 
 	return (
-		<StyledDueDateDisplay data-testid="DueDateDisplay">
+		<StyledDueDateDisplay data-testId="DueDateDisplay">
 			<span>{format(dueDate, 'EEE dd MMM')}</span>
 			<span>{description}</span>
 		</StyledDueDateDisplay>

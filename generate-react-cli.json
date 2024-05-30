@@ -1,7 +1,7 @@
 {
 	"usesTypeScript": true,
 	"usesStyledComponents": true,
-	"testLibrary": "Testing Library",
+	"testLibrary": "Playwright",
 	"component": {
 		"default": {
 			"path": "src/components",
@@ -12,7 +12,7 @@
 			"customTemplates": {
 				"component": "./templates/TemplateName.tsx",
 				"style": "./templates/TemplateName.style.ts",
-				"test": "./templates/TemplateName.test.tsx"
+				"test": "./templates/TemplateName.test.ts"
 			}
 		}
 	}
