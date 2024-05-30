@@ -12,7 +12,7 @@
 			"customTemplates": {
 				"component": "./templates/TemplateName.tsx",
 				"style": "./templates/TemplateName.style.ts",
-				"test": "./templates/TemplateName.test.ts"
+				"test": "./templates/TemplateName.spec.ts"
 			}
 		}
 	}

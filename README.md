@@ -13,7 +13,7 @@ To run the mock API:
 ```bash
 npm run mockapi
 ```
-Or use the included WebStorm run configuration (updating your project Node path as needed).
+...or use the included WebStorm run configuration (updating your project Node path as needed).
 
 ---
 
@@ -40,10 +40,7 @@ npm init playwright@latest
 
 Then run the mock API and UI:
 ```bash
-npm run mockapi
-```
-```bash
-npm run dev
+npm run test:start
 ```
 
 You should also be able to run all tests via the WSL terminal:
@@ -72,10 +69,7 @@ npx playwright install
 ```
 3. Run the UI and mock API:
 ```powershell
-npm run dev
-```
-```powershell
-npm run mockapi
+npm run test:start
 ```
 
 4. Then you should be able to run the Playwright UI:
